@@ -4,9 +4,9 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.1'
 
 # Use sqlite3 as the database for Active Record
-gem 'mysql2'
+gem 'sqlite3'
 
-gem 'nokogiri'
+#gem 'nokogiri'
 
 require 'open-uri'
 
