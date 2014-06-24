@@ -7,6 +7,12 @@ gem 'nokogiri'
 
 gem 'pg'
 
+gem 'sqlite3'
+
+gem 'gon'
+
+gem 'delayed_job_active_record'
+
 require 'open-uri'
 
 require 'date'
@@ -41,7 +47,7 @@ end
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  time: MyText
+  high: 1
+  low: 1
+  rain: 9.99
+  cloud: 1
+  run_id: 1
+
+two:
+  time: MyText
+  high: 1
+  low: 1
+  rain: 9.99
+  cloud: 1
+  run_id: 1

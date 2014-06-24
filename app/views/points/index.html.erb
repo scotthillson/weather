@@ -1,0 +1,28 @@
+<h1 class="text-center">Points</h1>
+<table class="table text-center">
+  <thead>
+    <tr class="text-center">
+      <th class="text-center">Time</th>
+      <th class="text-center">High</th>
+      <th>Low</th>
+      <th>Rain</th>
+      <th>Cloud</th>
+      <th>Run</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @points.each do |point| %>
+      <tr class="text-center">
+        <td><%= point.time %></td>
+        <td><%= point.high %></td>
+        <td><%= point.low %></td>
+        <td><%= point.rain %></td>
+        <td><%= point.cloud %></td>
+        <td><%= point.run.run %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
