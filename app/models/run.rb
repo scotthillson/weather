@@ -10,31 +10,16 @@ class Run < ActiveRecord::Base
     r.id
   end
 
-  def self.most_recent
-    Run.order('run').last
-  end
-
-  def self.warn
-    r = most_recent
-    points = r.points.order('time')
-    now = DateTime.now
-    body = ''
-    points.each do |p|
-      if now < p.time
-        if p.rain.to_i > 5
-          body = body + '.' + p.rain.to_i.to_s + ' inches at ' + p.time.time.in_time_zone('Pacific Time (US & Canada)').strftime("%A %-m-%d %l%P") + "\n"
-        end
-      end
-    end
-    SubscriptionMailer.rain_warning(body).deliver if body.length
+  def self.most_recent(location)
+    Run.where(location: location).order('run').last
   end
 
   def self.steal_runs
-		url = 'http://wxweb.meteostar.com/sample/sample.shtml?'
     location = 'KPDX'
+		url = 'http://wxweb.meteostar.com/sample/sample.shtml?'
     model = 'GFS'
-    runs = get_runs(url + 'text=KPDX')
-    Log.create_log('run search beginning','')
+    runs = get_runs(url + 'text=' + location)
+    Log.create_log('run search beginning','','','','','')
     runs.each do |run|
       search_runs(run,url,location,model)
     end
@@ -48,12 +33,12 @@ class Run < ActiveRecord::Base
       if marker > 0
         marker = marker + 1
         runs.push(cell.text.to_s)
-        if marker > 16
+        if marker > 30
           marker = -1
         end
       end
       if cell.text.to_s == 'Select a Run'
-      	#puts cell.text.to_s
+      	puts cell.text.to_s + ' line found'
         marker = 1
       end
     end
@@ -63,10 +48,10 @@ class Run < ActiveRecord::Base
   def self.search_runs(run,url,location,model)
     existing_run = Run.find_by run: run, location: location, model: model
     if !existing_run
-      Log.create_log('creating run',run)
+      Log.create_log('creating run',run,location,'','','')
       run_id = Run.store_run(run,location,model)
       if run_id
-        page = url + 'run=' + run + '&text=KPDX'
+        page = url + 'run=' + run + '&text=' + location
         parse_page(page,run_id)
       end
     end
@@ -86,21 +71,11 @@ class Run < ActiveRecord::Base
     string.gsub("\n","").strip.tr('^A-Za-z0-9.','')
   end
 
-  def self.parse_points(run,times,high,low,rain)
-    times.each do |time|
-      #puts time.strftime("%A %-m-%d %l%P")
-      h = high[time].to_i
-      l = low[time].to_i
-      r = rain[time].round(2)
-      Point.save_points(run,time,h,l,r)
-    end
-  end
-
   def self.parse_time(text)
     m = text[3..4]
     d = text[5..6]
     h = text[7..8]
-    t = Time.new('2014',m,d,h).in_time_zone('Pacific Time (US & Canada)')
+    t = Time.new('2014',m,d,h)
   end
 
   def self.parse_page(page,run)
@@ -137,7 +112,7 @@ class Run < ActiveRecord::Base
         i = i + 1
 			end
 		end
-    parse_points(run,times,high,low,rain)
+    Point.parse_points(run,times,high,low,rain)
 	end
 
 end

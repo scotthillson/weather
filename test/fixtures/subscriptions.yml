@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: MyString
+  frequency: MyString
+  rain: false
+  high: false
+  low: false
+  location_id: 1
+
+two:
+  email: MyString
+  frequency: MyString
+  rain: false
+  high: false
+  low: false
+  location_id: 1

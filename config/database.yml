@@ -20,8 +20,8 @@ test:
 
 production:
   adapter: postgresql
-  database: calendar
+  database: weather-production
   host: localhost
   pool: 5
-  username: root
-  password: br0wn13s
+  username: production_robot
+  password: br0wnies

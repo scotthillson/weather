@@ -11,6 +11,11 @@ gem 'sqlite3'
 
 gem 'gon'
 
+gem 'seed_dump'
+
+# We need jquery and turbolinks to play nice
+gem 'jquery-turbolinks'
+
 gem 'delayed_job_active_record'
 
 require 'open-uri'

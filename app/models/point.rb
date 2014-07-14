@@ -11,7 +11,17 @@ class Point < ActiveRecord::Base
       point.rain = r
       point.save
     else
-      Log.create_log('problem with point param','')
+      Log.create_log('problem with point param','','','','','')
     end
   end
+  
+  def self.parse_points(run,times,high,low,rain)
+    times.each do |time|
+      h = high[time].to_i
+      l = low[time].to_i
+      r = rain[time].round(2)
+      self.save_points(run,time,h,l,r)
+    end
+  end
+  
 end

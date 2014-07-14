@@ -1,5 +1,9 @@
 Weather::Application.routes.draw do
 
+  resources :subscriptions
+
+  resources :temperatures
+
   resources :points
   resources :runs
   resources :logs

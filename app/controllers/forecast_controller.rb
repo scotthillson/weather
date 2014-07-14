@@ -8,26 +8,29 @@ class ForecastController < ApplicationController
     high = {}
     low = {}
     recent = nil
-    runs = Run.all.order('run').reverse
+    location = 'KPDX'
+    runs = Run.where(location: location).order('run').reverse
     runs = runs.first(8)
-    recent = runs[0].run
-    puts recent
-    runs.each do |run|
-      r = run.run
-      runs_array.push(r)
-      points = run.points
-      points.each do |p|
-        time = p.time.in_time_zone('Pacific Time (US & Canada)').strftime("%A %-m-%d %l%P")
-        key = r + time
-        high[key] = p.high
-        rain[key] = p.rain
-        low[key] = p.low
-        times.push(time) if r == recent
+    if runs.count > 0
+      recent = runs[0].run
+      puts recent
+      runs.each do |run|
+        r = run.run
+        runs_array.push(r)
+        points = run.points
+        points.each do |p|
+          time = p.time.in_time_zone('Pacific Time (US & Canada)').strftime("%A %-m-%d %l%P")
+          key = r + time
+          high[key] = p.high
+          rain[key] = p.rain
+          low[key] = p.low
+          times.push(time) if r == recent
+        end
+        join_tables(r,recent,times,high,low,rain)
       end
-      join_tables(r,recent,times,high,low,rain)
+      gon.runs = runs_array
+      gon.tables = @tables
     end
-    gon.runs = runs_array
-    gon.tables = @tables
   end
 
   def join_tables(run,recent,times,high,low,rain)

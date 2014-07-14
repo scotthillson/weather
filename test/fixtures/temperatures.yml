@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  temperature: 1
+  latitude: MyString
+  longitude: MyString
+  location: MyString
+  name: MyString
+  elevation: 1
+  precipitation: 9.99
+  altimiter: 9.99
+
+two:
+  temperature: 1
+  latitude: MyString
+  longitude: MyString
+  location: MyString
+  name: MyString
+  elevation: 1
+  precipitation: 9.99
+  altimiter: 9.99

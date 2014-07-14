@@ -19,12 +19,12 @@
 
 # Learn more: http://github.com/javan/whenever
 
-set :environment, 'development'
+set :environment, 'production'
 
 every 1.hours do
 	runner "Run.steal_runs"
 end
 
 every 4.hours do
-  runner "Run.warn"
+  runner "Subscription.hourly"
 end
