@@ -1,5 +1,15 @@
 Weather::Application.routes.draw do
-  root to: 'forecast#temperature_chart'
+
+  resources :subscriptions
+
+  resources :temperatures
+
+  resources :points
+  resources :runs
+  resources :logs
+
+  root to: 'forecast#weather_chart'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

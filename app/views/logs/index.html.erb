@@ -1,0 +1,25 @@
+<table class="table text-center">
+  <thead>
+    <tr>
+      <th class="text-center">Action</th>
+      <th class="text-center">Run</th>
+      <th class="text-center">Created</th>
+			<th class="text-center">Location</th>
+			<th class="text-center">Email</th>
+			<th class="text-center">Note</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @logs.each do |log| %>
+      <tr>
+        <td><%= log.action %></td>
+        <td><%= log.run %></td>
+        <td><%= log.created_at %></td>
+				<td><%= log.location %></td>
+				<td><%= log.email %></td>
+				<td><%= log.note %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

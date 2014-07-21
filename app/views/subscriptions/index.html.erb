@@ -1,0 +1,28 @@
+<table class="table text-center">
+  <thead>
+    <tr>
+      <th class="text-center">Email</th>
+      <th class="text-center">Frequency</th>
+      <th class="text-center">Rain</th>
+      <th class="text-center">High</th>
+      <th class="text-center">Low</th>
+      <th class="text-center">Location</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @subscriptions.each do |subscription| %>
+      <tr>
+        <td><%= subscription.email %></td>
+        <td><%= subscription.frequency %></td>
+        <td><%= subscription.rain %></td>
+        <td><%= subscription.high %></td>
+        <td><%= subscription.low %></td>
+        <td><%= subscription.location_id %></td>
+        <td><%= link_to 'Destroy', subscription, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<%= link_to 'New Subscription', new_subscription_path %>

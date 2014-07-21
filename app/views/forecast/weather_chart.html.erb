@@ -1,0 +1,32 @@
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+<nav class="navbar navbar-default" role="navigation">
+	<div class="container-fluid">
+		<div class="btn-toolbar" style="mmargin:10px">
+		  <div class="timer btn btn-info btn-sm" data-toggle="tooltip" data-placement="bottom" title="You can't click me yet">Loading</div>
+		  <div class="again btn btn-success btn-sm">Play Again</div>
+		  <div class="btn btn-primary btn-sm" data-toggle="modal" data-target=".why-modal">Why?</div>
+		</div>
+	</div>
+</nav>
+
+<div id="temp-div" style="min-width:1000px;min-height:600px;width:100%;"></div>
+
+<div class="modal fade why-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">What is this telling me?</h4>
+      </div>
+      <div class="modal-body">
+        <p>This is a custom interface for the forecast model produced by the US National Weather Service. My goal is to observe changes in the 7 day forecast as they happen over time.</p>
+        <p>The graph is transitioning chronologically through each forecast until it reaches the most recent. The timestamp in the top right shows the time the forecast was generated.</p>
+        <p>Precipitation is displayed in hundredths of an inch over each three hour period.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

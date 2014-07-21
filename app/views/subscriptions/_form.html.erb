@@ -1,0 +1,39 @@
+<%= form_for(@subscription, html: { style: 'width:300px;margin:auto' }) do |f| %>
+  <% if @subscription.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@subscription.errors.count, "error") %> prohibited this subscription from being saved:</h2>
+      <ul>
+      <% @subscription.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field text-center">
+    <%= f.label :email %><br>
+    <%= f.text_field :email, class: 'form-control' %>
+  </div>
+  <div class="field text-center">
+    <%= f.label :frequency %><br>
+    <%= f.select :frequency, options_for_select(['Hourly','Daily','Weekly']),{},{class: 'form-control'} %>
+  </div>
+  <div class="field text-center">
+    <%= f.label :rain %><br>
+    <%= f.check_box :rain %>
+  </div>
+  <div class="field text-center">
+    <%= f.label :high %><br>
+    <%= f.check_box :high %>
+  </div>
+  <div class="field text-center">
+    <%= f.label :low %><br>
+    <%= f.check_box :low %>
+  </div>
+  <div class="field text-center">
+    <%= f.label :location_id %><br>
+    <%= f.select :location_id, options_for_select( Location.all.collect {|l| [ l.name, l.id ] }, { include_blank: false }),{},{class: 'form-control'} %>
+  </div>
+	<div class="actions text-center">
+	  <input name="commit" type="submit" value="Save" class="btn btn-sm btn-success">
+	</div>
+<% end %>

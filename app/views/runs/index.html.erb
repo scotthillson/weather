@@ -1,0 +1,22 @@
+<h1 class="text-center">Runs</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Run</th>
+      <th>Location</th>
+      <th>Model</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @runs.each do |run| %>
+      <tr>
+        <td><%= run.run %></td>
+        <td><%= run.location %></td>
+        <td><%= run.model %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

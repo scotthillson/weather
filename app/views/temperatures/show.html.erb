@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Temperature:</strong>
+  <%= @temperature.temperature %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @temperature.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @temperature.longitude %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @temperature.location %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @temperature.name %>
+</p>
+
+<p>
+  <strong>Elevation:</strong>
+  <%= @temperature.elevation %>
+</p>
+
+<p>
+  <strong>Precipitation:</strong>
+  <%= @temperature.precipitation %>
+</p>
+
+<p>
+  <strong>Altimiter:</strong>
+  <%= @temperature.altimiter %>
+</p>
+
+<%= link_to 'Edit', edit_temperature_path(@temperature) %> |
+<%= link_to 'Back', temperatures_path %>
