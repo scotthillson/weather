@@ -1,5 +1,6 @@
 jQuery(function(){
 	$('.again').on('click',prep);
+  $(document).on('page:load',prep);
 });
 
 var options;

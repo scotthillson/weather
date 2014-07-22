@@ -1,16 +1,18 @@
 class Subscription < ActiveRecord::Base
   belongs_to :location
-  
+  validates_presence_of :email
+
   def self.hourly
-    subs = Subscription.where(frequency: 'hourly', rain: true)
+    subs = Subscription.where(frequency: 'Hourly', rain: true)
     subs.each do |s|
       to = s.email
-      location = s.location
-      Subscripiton.compile(location,to)
+      location = s.location.icao
+      self.compile(location,to)
     end
   end
 
 	def self.compile(location,to)
+    puts location
     run = Run.most_recent(location)
     points = run.points.order('time')
     now = DateTime.now

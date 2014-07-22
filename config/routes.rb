@@ -10,6 +10,8 @@ Weather::Application.routes.draw do
 
   root to: 'forecast#weather_chart'
 
+  #get '/subscriptions', to: 'subscriptions#index', as: 'subscriptions'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

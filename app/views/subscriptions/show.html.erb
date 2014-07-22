@@ -1,34 +1,25 @@
 <p id="notice"><%= notice %></p>
-
 <p>
   <strong>Email:</strong>
   <%= @subscription.email %>
 </p>
-
 <p>
   <strong>Frequency:</strong>
   <%= @subscription.frequency %>
 </p>
-
 <p>
   <strong>Rain:</strong>
   <%= @subscription.rain %>
 </p>
-
 <p>
   <strong>High:</strong>
   <%= @subscription.high %>
 </p>
-
 <p>
   <strong>Low:</strong>
   <%= @subscription.low %>
 </p>
-
 <p>
   <strong>Location:</strong>
   <%= @subscription.location_id %>
 </p>
-
-<%= link_to 'Edit', edit_subscription_path(@subscription) %> |
-<%= link_to 'Back', subscriptions_path %>
