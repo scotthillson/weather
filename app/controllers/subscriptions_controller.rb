@@ -24,8 +24,8 @@ class SubscriptionsController < ApplicationController
   # POST /subscriptions
   # POST /subscriptions.json
   def create
+    sleep(2)
     @subscription = Subscription.new(subscription_params)
-
     respond_to do |format|
       if @subscription.save
         format.html { redirect_to @subscription, notice: 'Subscription was successfully created.' }
