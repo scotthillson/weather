@@ -26,7 +26,7 @@
         <li class="<%= 'active' if current_page?(root_path) %> "><%= link_to root_path do %><div class="btn btn-primar">Chart</div><% end %></li>
         <li class="<%= 'active' if current_page?(subscriptions_path) %> "><%= link_to subscriptions_path do %><div class="btn btn-primar">Subscriptions</div><% end %></li>
         <% if current_page?(root_path) %>
-        <li><a><div class="timer btn btn-info btn-sm" data-toggle="tooltip" data-placement="bottom" title="You can't click me yet">Loading</div></a></li>
+        <li><a><div class="timer btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="You can't click me yet">Loading</div></a></li>
 		    <li><a><div class="again btn btn-success btn-sm">Play Again</div></a></li>
 		    <li><a><div class="btn btn-primary btn-sm" data-toggle="modal" data-target=".why-modal">Why?</div></a></li>
         <% end %>

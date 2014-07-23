@@ -10,8 +10,8 @@ runs.reverse();
 google.load("visualization", "1", {packages:["corechart"]});
 google.setOnLoadCallback(prep);
 drawchart = function(timeout,run){
-	$('.again').removeClass('btn-success');
-	$('.again').addClass('btn-warning');
+	$('.again').removeClass('btn-success').addClass('btn-warning');
+  $('.timer').removeClass('btn-danger').addClass('btn-info')
 	setTimeout(function(){
 		var data = new google.visualization.DataTable();
 		data.addColumn('string','Hour');
