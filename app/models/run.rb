@@ -15,15 +15,21 @@ class Run < ActiveRecord::Base
   end
 
   def self.steal_runs
-    location = 'KPDX'
-		url = 'http://wxweb.meteostar.com/sample/sample.shtml?'
+    url = 'http://wxweb.meteostar.com/sample/sample.shtml?'
     model = 'GFS'
+    locations = Location.all.pluck(:icao)
+    locations.each do |location|
+      steal_runs_for_city(location,url,model)
+    end
+	end
+  
+  def self.steal_runs_for_city(location,url,model)
     runs = get_runs(url + 'text=' + location)
-    Log.create_log('run search beginning','','','','','')
+    Log.create_log('run search beginning','',location,'','','')
     runs.each do |run|
       search_runs(run,url,location,model)
     end
-	end
+  end
 
   def self.get_runs(page)
 	  runs = Array.new
@@ -38,7 +44,6 @@ class Run < ActiveRecord::Base
         end
       end
       if cell.text.to_s == 'Select a Run'
-      	puts cell.text.to_s + ' line found'
         marker = 1
       end
     end

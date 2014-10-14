@@ -8,7 +8,6 @@
 	<%= include_gon %>
 </head>
 <body>
-
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -25,7 +24,8 @@
       <ul class="nav navbar-nav">
         <li class="<%= 'active' if current_page?(root_path) %> "><%= link_to root_path do %><div class="btn btn-primar">Chart</div><% end %></li>
         <li class="<%= 'active' if current_page?(subscriptions_path) %> "><%= link_to subscriptions_path do %><div class="btn btn-primar">Subscriptions</div><% end %></li>
-        <% if current_page?(root_path) %>
+        <% if current_page?(subscriptions_path) %>
+        <% else %>
         <li><a><div class="timer btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="You can't click me yet">Loading</div></a></li>
 		    <li><a><div class="again btn btn-success btn-sm">Play Again</div></a></li>
 		    <li><a><div class="btn btn-primary btn-sm" data-toggle="modal" data-target=".why-modal">Why?</div></a></li>
@@ -34,8 +34,6 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
-
 <%= yield %>
 </body>
 <footer>

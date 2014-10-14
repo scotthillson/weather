@@ -1,14 +1,19 @@
 Weather::Application.routes.draw do
 
+  resources :blogs
+
   resources :subscriptions
-
   resources :temperatures
-
+  resources :locations
   resources :points
   resources :runs
   resources :logs
 
-  root to: 'forecast#weather_chart'
+  root to: 'forecast#weather_chart', location: 'KPDX'
+  
+  get 'locations', to: 'locations#index'
+  
+  get '/:location', to: 'forecast#weather_chart'
 
   #get '/subscriptions', to: 'subscriptions#index', as: 'subscriptions'
 
