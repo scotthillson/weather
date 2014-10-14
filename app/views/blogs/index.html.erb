@@ -1,0 +1,15 @@
+<% @blogs.each do |blog| %>
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<%= blog.title %>
+			<br>
+			Submitted by <%= blog.author %>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+			    <p><%= blog.body.gsub(/\n/, '</p><p>').html_safe %></p>
+			</div>
+		</div>
+	</div>
+<% end %>
+<%= link_to new_blog_path do %><div class="btn btn-sm btn-success">New Entry </div><% end %>

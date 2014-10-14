@@ -5,7 +5,7 @@ gem 'rails', '4.0.1'
 
 gem 'nokogiri'
 
-gem 'pg'
+#gem 'pg'
 
 gem 'sqlite3'
 

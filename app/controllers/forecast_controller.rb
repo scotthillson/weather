@@ -8,7 +8,7 @@ class ForecastController < ApplicationController
     high = {}
     low = {}
     recent = nil
-    location = 'KPDX'
+    location = params[:location]
     runs = Run.where(location: location).order('run').reverse
     runs = runs.first(8)
     if runs.count > 0

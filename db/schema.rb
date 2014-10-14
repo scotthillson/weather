@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140707222947) do
+ActiveRecord::Schema.define(version: 20140818171334) do
+
+  create_table "blogs", force: true do |t|
+    t.string   "author"
+    t.string   "body"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
