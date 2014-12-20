@@ -2,7 +2,7 @@ class Run < ActiveRecord::Base
   has_many :points
 
   def self.store_run(run,location,model)
-    r = Run.new
+    r = new
     r.location = location
     r.model = model
     r.run = run
@@ -11,10 +11,11 @@ class Run < ActiveRecord::Base
   end
 
   def self.most_recent(location)
-    Run.where(location: location).order('run').last
+    where(location: location).order('run').last
   end
 
   def self.steal_runs
+    clear_bad_runs
     url = 'http://wxweb.meteostar.com/sample/sample.shtml?'
     model = 'GFS'
     locations = Location.all.pluck(:icao)
@@ -22,6 +23,14 @@ class Run < ActiveRecord::Base
       steal_runs_for_city(location,url,model)
     end
 	end
+  
+  def self.clear_bad_runs
+    all.each do |r|
+      if r.points.count < 1
+        r.destroy
+      end
+    end
+  end
   
   def self.steal_runs_for_city(location,url,model)
     runs = get_runs(url + 'text=' + location)
@@ -51,10 +60,10 @@ class Run < ActiveRecord::Base
   end
 
   def self.search_runs(run,url,location,model)
-    existing_run = Run.find_by run: run, location: location, model: model
+    existing_run = find_by run: run, location: location, model: model
     if !existing_run
       Log.create_log('creating run',run,location,'','','')
-      run_id = Run.store_run(run,location,model)
+      run_id = store_run(run,location,model)
       if run_id
         page = url + 'run=' + run + '&text=' + location
         parse_page(page,run_id)

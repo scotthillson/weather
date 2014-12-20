@@ -13,7 +13,6 @@ class ForecastController < ApplicationController
     runs = runs.first(8)
     if runs.count > 0
       recent = runs[0].run
-      puts recent
       runs.each do |run|
         r = run.run
         runs_array.push(r)
