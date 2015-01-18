@@ -1,16 +1,15 @@
 class ForecastController < ApplicationController
 
   def weather_chart
-    times = Array.new
-    runs_array = Array.new
+    runs_array = []
+    times = []
     @tables = {}
     rain = {}
     high = {}
     low = {}
     recent = nil
     location = params[:location]
-    runs = Run.where(location: location).order('run').reverse
-    runs = runs.first(8)
+    runs = Run.where(location: location).order('run').reverse.first(8)
     if runs.count > 0
       recent = runs[0].run
       runs.each do |run|
@@ -29,14 +28,15 @@ class ForecastController < ApplicationController
       end
       gon.runs = runs_array
       gon.tables = @tables
+      gon.times = times
     end
   end
 
   def join_tables(run,recent,times,high,low,rain)
-    array = Array.new
+    array = []
     times.each do |time|
-      master_key = recent + time
-      key = run + time
+      master_key = ( recent + time )
+      key = ( run + time )
       h = high[key] ? high[key] : high[master_key]
       l = low[key] ? low[key] : low[master_key]
       r = rain[key] ? rain[key] : rain[master_key]

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140818171334) do
+ActiveRecord::Schema.define(version: 20150111205858) do
 
   create_table "blogs", force: true do |t|
     t.string   "author"
@@ -42,6 +42,8 @@ ActiveRecord::Schema.define(version: 20140818171334) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "model"
+    t.string   "url"
   end
 
   create_table "logs", force: true do |t|
