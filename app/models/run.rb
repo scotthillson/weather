@@ -14,23 +14,6 @@ class Run < ActiveRecord::Base
     Run.where(location: location).order('run').last
   end
 
-  def self.steal_runs
-    url = 'http://wxweb.meteostar.com/sample/sample.shtml?'
-    model = 'GFS'
-    locations = Location.all.pluck(:icao)
-    locations.each do |location|
-      steal_runs_for_city(location,url,model)
-    end
-	end
-  
-  def self.steal_runs_for_city(location,url,model)
-    runs = get_runs(url + 'text=' + location)
-    Log.create_log('run search beginning','',location,'','','')
-    runs.each do |run|
-      search_runs(run,url,location,model)
-    end
-  end
-
   def self.get_runs(page)
 	  runs = Array.new
     marker = 0
@@ -57,7 +40,7 @@ class Run < ActiveRecord::Base
       run_id = Run.store_run(run,location,model)
       if run_id
         page = url + 'run=' + run + '&text=' + location
-        parse_page(page,run_id)
+        parse_meteostar(page,run_id)
       end
     end
   end
@@ -83,7 +66,7 @@ class Run < ActiveRecord::Base
     t = Time.new('2014',m,d,h)
   end
 
-  def self.parse_page(page,run)
+  def self.parse_meteostar(page,run)
     times = Array.new
     rain = {}
 		high = {}
