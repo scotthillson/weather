@@ -1,7 +1,3 @@
-var runs = gon.runs.reverse();
-var options;
-var chart;
-
 function google_prep(){
   google.load("visualization", "1", {
     packages:["corechart"],
@@ -49,6 +45,3 @@ function chart_prep(){
 function trigger_chart(data){
 	chart.draw(data, options);
 }
-
-$(document).on('click','.again',google_prep);
-$(document).on('page:load',google_prep);
