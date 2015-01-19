@@ -1,11 +1,11 @@
-function google_prep(){
+var google_prep = function(){
   google.load("visualization", "1", {
     packages:["corechart"],
     callback: chart_prep
   });
 }
 
-function draw_chart(timeout,run){
+var draw_chart = function(timeout,run){
 	$('.again').removeClass('btn-success').addClass('btn-warning');
   $('.timer').removeClass('btn-danger').addClass('btn-info')
 	setTimeout(function(){
@@ -14,9 +14,7 @@ function draw_chart(timeout,run){
 		data.addColumn('number','Highball');
 		data.addColumn('number','Lowball');
 		data.addColumn('number','Precipitation');
-		var rows = new Array();
-		rows = gon.tables[run];
-    console.log(gon.tables);
+		var rows = gon.tables[run];
 		$('.timer').html(run);
 		rows.forEach(function(entry){
 			data.addRow(entry);
@@ -24,24 +22,33 @@ function draw_chart(timeout,run){
 		trigger_chart(data);
 	},timeout);
 }
-
-function chart_prep(){
+var animate = function(){
+  if ( get_param('run') == 'recent' ){
+    draw_chart(100,runs[runs.length-1]);
+    return false;
+  }
+  else {
+    return true;
+  }
+}
+var chart_prep = function(){
 	chart = new google.visualization.LineChart(document.getElementById('temp-div'));
 	options = {
 		colors: ['Red','Purple','Blue'],
 		animation:{duration: 3000,easing: 'linear'}
 	};
-	var timeout = 400;
-	runs.forEach(function(entry){
-		draw_chart(timeout,entry);
-		timeout = timeout + 4000
-	});
-	setTimeout(function(){
-		$('.again').removeClass('btn-warning');
-		$('.again').addClass('btn-success');
-	},timeout);
+  if ( animate() ){
+  	var timeout = 400;
+  	runs.forEach(function(entry){
+  		draw_chart(timeout,entry);
+  		timeout = timeout + 4000
+  	});
+  	setTimeout(function(){
+  		$('.again').removeClass('btn-warning');
+  		$('.again').addClass('btn-success');
+  	},timeout);
+  }
 }
-
-function trigger_chart(data){
+var trigger_chart = function(data){
 	chart.draw(data, options);
 }

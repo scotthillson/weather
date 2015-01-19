@@ -1,4 +1,5 @@
 class ForecastController < ApplicationController
+  before_action :set_location, only: :weather_chart
 
   def weather_chart
     runs_array = []
@@ -8,8 +9,7 @@ class ForecastController < ApplicationController
     high = {}
     low = {}
     recent = nil
-    location = params[:location]
-    runs = Run.where(location: location).order('run').reverse.first(8)
+    runs = Run.where(location: @location).order('run').reverse.first(8)
     if runs.count > 0
       recent = runs[0].run
       runs.each do |run|
@@ -26,6 +26,7 @@ class ForecastController < ApplicationController
         end
         join_tables(r,recent,times,high,low,rain)
       end
+      puts gon.runs
       gon.runs = runs_array
       gon.tables = @tables
       gon.times = times
@@ -44,6 +45,10 @@ class ForecastController < ApplicationController
       array.push(text)
     end
     @tables[run] = array
+  end
+  
+  def set_location
+    @location = Location.where('icao LIKE ?',params[:location]).icao
   end
 
 end

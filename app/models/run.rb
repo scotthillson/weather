@@ -17,7 +17,7 @@ class Run < ActiveRecord::Base
   def self.get_runs(page)
 	  runs = Array.new
     marker = 0
-    form = scrape_runs(page)
+    form = scrape_meteostar_runs(page)
     form.each do |cell|
       if marker > 0
         marker = marker + 1
@@ -40,19 +40,24 @@ class Run < ActiveRecord::Base
       run_id = Run.store_run(run,location,model)
       if run_id
         page = url + 'run=' + run + '&text=' + location
-        parse_meteostar(page,run_id)
+        prep_meteostar(page,run_id)
       end
     end
   end
+  
+  def self.scrape_nws(page)
+    tab = Nokogiri::HTML(open(page))
+    tab.css('body').css('table')[5]
+  end
 
-  def self.scrape_table(page)
+  def self.scrape_meteostar_table(page)
 		gfs = Nokogiri::HTML(open(page))
-		gfs.css("table")[1].css("td")
+		gfs.css('table')[1].css('td')
 	end
 
-  def self.scrape_runs(page)
+  def self.scrape_meteostar_runs(page)
 	  gfs = Nokogiri::HTML(open(page))
-	  gfs.css("table")[1].css("form").css("option")
+	  gfs.css('table')[1].css('form').css('option')
   end
 
   def self.strip_crap(string)
@@ -66,15 +71,15 @@ class Run < ActiveRecord::Base
     t = Time.new('2014',m,d,h)
   end
 
-  def self.parse_meteostar(page,run)
+  def self.prep_meteostar(page,run)
+    table = scrape_meteostar_table(page)
     times = Array.new
+    marker = nil
     rain = {}
 		high = {}
 		low = {}
-		marker = nil
 		t = nil
 		i = 0
-    table = scrape_table(page)
 		table.each do |cell|
 			text = strip_crap(cell.text.to_s)
       marker = 1 if text == 'FCSTHour' && !marker
