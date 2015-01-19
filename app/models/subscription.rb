@@ -10,6 +10,10 @@ class Subscription < ActiveRecord::Base
       self.compile(location,to)
     end
   end
+  
+  def self.compile_body(body)
+    body + ".#{amount.to_s} inches at #{time.strftime("%l%P %A %-m-%d")} \n"
+  end
 
 	def self.compile(location,to)
     puts location
@@ -24,11 +28,11 @@ class Subscription < ActiveRecord::Base
         if log = Log.find_by(action: 'rain email', time: time, email: to, location: location)
           if amount != log.note.to_i
             log.update_email_log(amount)
-            body = body + '.' + amount.to_s + ' inches at ' + time.strftime("%l%P %A %-m-%d") + "\n"
+            body = compile_body(body)
           end
         else
           if p.rain.to_i > 1
-            body = body + '.' + amount.to_s + ' inches at ' + time.strftime("%l%P %A %-m-%d") + "\n"
+            body = compile_body(body)
             Log.create_log('rain email',run,location,time,to,amount)
           end
         end
