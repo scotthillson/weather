@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150111205858) do
+ActiveRecord::Schema.define(version: 20150119224452) do
 
   create_table "blogs", force: true do |t|
     t.string   "author"
@@ -59,13 +59,23 @@ ActiveRecord::Schema.define(version: 20150111205858) do
 
   create_table "points", force: true do |t|
     t.datetime "time"
-    t.integer  "high"
-    t.integer  "low"
-    t.decimal  "rain"
-    t.integer  "cloud"
+    t.integer  "high_temperature_predicted"
+    t.integer  "low_temperature_predicted"
+    t.decimal  "rain_inches_predicted"
+    t.integer  "cloud_cover"
     t.integer  "run_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "precipitation_potential"
+    t.integer  "mean_temperature_predicted"
+    t.string   "rain_description"
+    t.string   "thunder_description"
+    t.string   "snow_description"
+    t.string   "freezing_rain_description"
+    t.string   "sleet_description"
+    t.integer  "surface_wind_predicted"
+    t.integer  "wind_chill_predicted"
+    t.integer  "dewpoint_predicted"
   end
 
   create_table "runs", force: true do |t|
