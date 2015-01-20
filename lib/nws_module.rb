@@ -4,15 +4,14 @@ module NWSModule
     page.css('body').css('table')[5].css('tbody')
   end
 
-  def self.fetch_nws_run(page)
-    page = page.css('body').css('table')[3].css('tbody').css('tr')[0]
-    location = page.css('td')[0]
-    time = page.css('td')[1]
+  def self.get_nws_runs(page)
+    page = page.css('body').css('table')[3].css('tr')[0]
+    location = page.css('td')[0].text
+    time = page.css('td')[1].text
     {time: time, location: location}
   end
 
   def self.parse_nws(page,run)
     page = open_page(page)
-    
   end
 end
