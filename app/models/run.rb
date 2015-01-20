@@ -1,6 +1,6 @@
 class Run < ActiveRecord::Base
-  include NWSModule
   include MeteostarModule
+  include NWSModule
   has_many :points
 
   def self.store_run(run,location,model)
@@ -16,20 +16,15 @@ class Run < ActiveRecord::Base
     Run.where(location: location).order('run').last
   end
 
-  def self.search_runs(run,url,location,model)
+  def self.search_runs(run,page,location,model)
     existing_run = Run.find_by run: run, location: location, model: model
     if !existing_run
       Log.create_log('creating run',run,location,'','','')
       run_id = Run.store_run(run,location,model)
       if run_id
-        page = url + 'run=' + run + '&text=' + location
         parse_meteostar(page,run_id)
       end
     end
-  end
-
-  def self.open_page(page)
-    Nokogiri::HTML(open(page))
   end
 
   def self.strip_crap(string)

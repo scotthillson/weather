@@ -5,8 +5,9 @@ class ForecastController < ApplicationController
     runs_array = []
     times = []
     @tables = {}
-    rain = {}
+    inches = {}
     high = {}
+    mean = {}
     low = {}
     recent = nil
     runs = Run.where(location: @location).order('run').reverse.first(8)
@@ -19,12 +20,12 @@ class ForecastController < ApplicationController
         points.each do |p|
           time = p.time.in_time_zone('Pacific Time (US & Canada)').strftime("%A %-m-%d %l%P")
           key = r + time
-          high[key] = p.high
-          rain[key] = p.rain
-          low[key] = p.low
+          high[key] = p.high_temperature_predicted
+          inches[key] = p.rain_inches_predicted
+          low[key] = p.low_temperature_predicted
           times.push(time) if r == recent
         end
-        join_tables(r,recent,times,high,low,rain)
+        join_tables(r,recent,times,high,low,inches)
       end
       puts gon.runs
       gon.runs = runs_array
@@ -33,22 +34,22 @@ class ForecastController < ApplicationController
     end
   end
 
-  def join_tables(run,recent,times,high,low,rain)
+  def join_tables(run,recent,times,high,low,inches)
     array = []
     times.each do |time|
       master_key = ( recent + time )
       key = ( run + time )
       h = high[key] ? high[key] : high[master_key]
       l = low[key] ? low[key] : low[master_key]
-      r = rain[key] ? rain[key] : rain[master_key]
+      r = inches[key] ? inches[key] : inches[master_key]
       text = [ time , h.to_i , l.to_i , r.to_i ]
       array.push(text)
     end
     @tables[run] = array
   end
-  
+
   def set_location
-    @location = Location.where('icao LIKE ?',params[:location]).icao
+    @location = Location.where('code LIKE ?',params[:location]).code
   end
 
 end

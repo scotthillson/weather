@@ -6,7 +6,7 @@ class Subscription < ActiveRecord::Base
     subs = Subscription.where(frequency: 'Hourly', rain: true)
     subs.each do |s|
       to = s.email
-      location = s.location.icao
+      location = s.location.code
       self.compile(location,to)
     end
   end
