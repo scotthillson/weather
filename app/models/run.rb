@@ -22,7 +22,7 @@ class Run < ActiveRecord::Base
       Log.create_log('creating run',run,location,'','','')
       run_id = Run.store_run(run,location,model)
       if run_id
-        parse_meteostar(page,run_id)
+        MeteostarModule.parse_meteostar(page,run_id)
       end
     end
   end

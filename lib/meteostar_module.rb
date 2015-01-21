@@ -30,7 +30,6 @@ module MeteostarModule
   def self.parse_meteostar(page,run)
     marker = nil
     times = Array.new
-    page = open_page(page)
     table = fetch_meteostar_table(page)
     rain = {}
 		high = {}
