@@ -12,7 +12,7 @@ class Location < ActiveRecord::Base
     Nokogiri::HTML(open(page))
   end
 
-  def get_runs_for_gfs
+  def get_runs_for_gfs(page)
     MeteostarModule.get_meteostar_runs(page)
   end
 
@@ -25,7 +25,7 @@ class Location < ActiveRecord::Base
     page = open_page(self.url)
     if self.model == 'gfs'
       runs = get_runs_for_gfs(page)
-    elsif self.model = 'nws'
+    elsif self.model == 'nws'
       runs = get_runs_for_nws(page)
       return runs
     end
