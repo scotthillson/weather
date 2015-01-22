@@ -13,7 +13,7 @@ module NWSModule
     {time: time, location: location}
   end
 
-  def self.parse_nws(page,run)
-    page = open_page(page)
+  def self.parse_nws(page,run_id)
+    puts page
   end
 end

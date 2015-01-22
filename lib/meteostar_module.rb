@@ -37,7 +37,7 @@ module MeteostarModule
 		t = nil
 		i = 0
 		table.each do |cell|
-			text = strip_crap(cell.text.to_s)
+			text = Run.strip_crap(cell.text.to_s)
       marker = 1 if text == 'FCSTHour' && !marker
 			marker = 2 if text == '180'
 			if marker

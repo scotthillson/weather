@@ -27,10 +27,17 @@ class Location < ActiveRecord::Base
       runs = get_runs_for_gfs(page)
     elsif self.model == 'nws'
       runs = get_runs_for_nws(page)
-      return runs
+      runs = [runs[:time].to_s]
     end
     runs.each do |run|
-      Run.search_runs(run,self.url,self.code,self.model)
+      run_id = Run.search_runs(Time.parse(run),self.url,self)
+      if run_id
+        if self.model == 'gfs'
+          MeteostarModule.parse_meteostar(page,run_id)
+        elsif self.model == 'nws'
+          NWSModule.parse_nws(page,run_id)
+        end
+      end
     end
     return 'end'
   end
