@@ -11,9 +11,12 @@ var draw_chart = function(timeout,run){
 	setTimeout(function(){
 		var data = new google.visualization.DataTable();
 		data.addColumn('string','Hour');
-		data.addColumn('number','Highball');
-		data.addColumn('number','Lowball');
-		data.addColumn('number','Precipitation');
+		data.addColumn('number','Highest');
+		data.addColumn('number','Lowest');
+		data.addColumn('number','Inches');
+		data.addColumn('number','Mean');
+		data.addColumn('number','Clouds');
+		data.addColumn('number','Potential')
 		var rows = gon.tables[run];
 		$('.timer').html(run);
 		rows.forEach(function(entry){
@@ -34,7 +37,7 @@ var animate = function(){
 var chart_prep = function(){
 	chart = new google.visualization.LineChart(document.getElementById('temp-div'));
 	options = {
-		colors: ['Red','Purple','Blue'],
+		colors: ['Red','Purple','Blue','Orange'],
 		animation:{duration: 3000,easing: 'linear'}
 	};
   if ( animate() ){

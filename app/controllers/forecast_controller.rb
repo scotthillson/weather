@@ -3,53 +3,62 @@ class ForecastController < ApplicationController
 
   def weather_chart
     runs_array = []
-    times = []
+    times = [] 
     @tables = {}
     inches = {}
-    high = {}
-    mean = {}
-    low = {}
+    clouds = {}
+    highs = {}
+    means = {}
+    lows = {}
+    pots = {}
     recent = nil
-    runs = Run.where(location: @location).order('run').reverse.first(8)
+    runs = Run.where(location: @location.id).order('run').reverse.first(8)
     if runs.count > 0
-      recent = runs[0].run
+      recent = runs[0].run_time.to_s
       runs.each do |run|
-        r = run.run
+        r = run.run_time.to_s
         runs_array.push(r)
         points = run.points
         points.each do |p|
           time = p.time.in_time_zone('Pacific Time (US & Canada)').strftime("%A %-m-%d %l%P")
           key = r + time
-          high[key] = p.high_temperature_predicted
+          highs[key] = p.high_temperature_predicted
           inches[key] = p.rain_inches_predicted
-          low[key] = p.low_temperature_predicted
+          lows[key] = p.low_temperature_predicted
+          means[key] = p.mean_temperature_predicted
+          clouds[key] = p.cloud_cover
+          pots[key] = p.precipitation_potential
           times.push(time) if r == recent
         end
-        join_tables(r,recent,times,high,low,inches)
+        join_tables(r,recent,times,highs,lows,inches,means,clouds,pots)
       end
-      puts gon.runs
+      puts times
       gon.runs = runs_array
       gon.tables = @tables
       gon.times = times
     end
   end
 
-  def join_tables(run,recent,times,high,low,inches)
+  def join_tables(run,recent,times,highs,lows,inches,means,clouds,pots)
     array = []
     times.each do |time|
       master_key = ( recent + time )
       key = ( run + time )
-      h = high[key] ? high[key] : high[master_key]
-      l = low[key] ? low[key] : low[master_key]
-      r = inches[key] ? inches[key] : inches[master_key]
-      text = [ time , h.to_i , l.to_i , r.to_i ]
+      high = highs[key] ? highs[key] : highs[master_key]
+      low = lows[key] ? lows[key] : lows[master_key]
+      inch = inches[key] ? inches[key] : inches[master_key]
+      mean = means[key] ? means[key] : means[master_key]
+      cloud = clouds[key] ? clouds[key] : clouds[master_key]
+      pot = pots[key] ? pots[key] : pots[master_key]
+      text = [ time , high.to_i , low.to_i , inch.to_i, mean.to_i, cloud.to_i , pot ]
+      puts text
       array.push(text)
     end
     @tables[run] = array
   end
 
   def set_location
-    @location = Location.where('code LIKE ?',params[:location]).code
+    @location = Location.where('code LIKE ?',params[:location]).first
   end
 
 end
