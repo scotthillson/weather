@@ -12,7 +12,7 @@ class ForecastController < ApplicationController
     lows = {}
     pots = {}
     recent = nil
-    runs = Run.where(location: @location.id).order('run').reverse.first(8)
+    runs = Run.where(location_id: @location.id).order('run').reverse.first(8)
     if runs.count > 0
       recent = runs[0].run_time.to_s
       runs.each do |run|
@@ -32,7 +32,6 @@ class ForecastController < ApplicationController
         end
         join_tables(r,recent,times,highs,lows,inches,means,clouds,pots)
       end
-      puts times
       gon.runs = runs_array
       gon.tables = @tables
       gon.times = times
@@ -51,7 +50,6 @@ class ForecastController < ApplicationController
       cloud = clouds[key] ? clouds[key] : clouds[master_key]
       pot = pots[key] ? pots[key] : pots[master_key]
       text = [ time , high.to_i , low.to_i , inch.to_i, mean.to_i, cloud.to_i , pot ]
-      puts text
       array.push(text)
     end
     @tables[run] = array

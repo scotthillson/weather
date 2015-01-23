@@ -1,10 +1,10 @@
 class Location < ActiveRecord::Base
   has_many :subscriptions
 
-  def self.populate
+  def self.populate_all
     locations = all
     locations.each do |location|
-      location.get_runs_for_location
+      location.populate
     end
 	end
 
@@ -20,14 +20,13 @@ class Location < ActiveRecord::Base
     NWSModule.get_nws_runs(page)
   end
 
-  def get_runs_for_location
+  def populate
     Log.create_log('run search beginning','',self.name,'','','')
     page = open_page(self.url)
     if self.model == 'gfs'
       runs = get_runs_for_gfs(page)
     elsif self.model == 'nws'
-      runs = get_runs_for_nws(page)
-      runs = [runs[:time].to_s]
+      runs = [get_runs_for_nws(page)[:time].to_s]
     end
     runs.each do |run|
       run_id = Run.search_runs(Time.parse(run),self.url,self)
@@ -36,6 +35,14 @@ class Location < ActiveRecord::Base
           MeteostarModule.parse_meteostar(page,run_id)
         elsif self.model == 'nws'
           NWSModule.parse_nws(page,run_id)
+          if self.url_two
+            page = open_page(self.url_two)
+            NWSModule.parse_nws(page,run_id)
+          end
+          if self.url_three
+            page = open_page(self.url_three)
+            NWSModule.parse_nws(page,run_id)
+          end
         end
       end
     end

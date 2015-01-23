@@ -21,10 +21,10 @@
 
 set :environment, 'production'
 
-every 1.hours do
-	runner "Run.steal_runs"
+every 2.hours do
+	runner "Location.populate_all"
 end
 
-every 4.hours do
+every 6.hours do
   runner "Subscription.hourly"
 end

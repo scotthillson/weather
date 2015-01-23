@@ -5,7 +5,6 @@ class Run < ActiveRecord::Base
 
   def self.store_run(run,location)
     r = new
-    r.location = location
     r.location_id = location
     r.run_time = run
     r.save
@@ -38,6 +37,20 @@ class Run < ActiveRecord::Base
     d = text[5..6]
     h = text[7..8]
     t = Time.new('2014',m,d,h)
+  end
+  
+  def self.run_this_before_restarting_the_server
+    # but after migrate
+    Run.all.each do |run|
+      if !run.location_id
+        run.location_id = Location.find_by_code(run.code).id
+        run.save
+      end
+      if !run.run_time
+        run.run_time = Time.parse(run.run)
+        run.save
+      end
+    end
   end
 
 end

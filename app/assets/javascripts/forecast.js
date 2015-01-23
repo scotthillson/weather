@@ -37,7 +37,7 @@ var animate = function(){
 var chart_prep = function(){
 	chart = new google.visualization.LineChart(document.getElementById('temp-div'));
 	options = {
-		colors: ['Red','Purple','Blue','Orange'],
+		colors: ['Red','Purple','Black','Orange','Blue','Gray'],
 		animation:{duration: 3000,easing: 'linear'}
 	};
   if ( animate() ){
