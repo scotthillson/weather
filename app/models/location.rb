@@ -39,7 +39,6 @@ class Location < ActiveRecord::Base
         end
       end
     end
-    return 'end'
   end
 
 end

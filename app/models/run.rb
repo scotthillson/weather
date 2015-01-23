@@ -6,6 +6,7 @@ class Run < ActiveRecord::Base
   def self.store_run(run,location)
     r = new
     r.location = location
+    r.location_id = location
     r.run_time = run
     r.save
     r.id

@@ -1,27 +1,31 @@
 class Point < ActiveRecord::Base
   belongs_to :run
 
-  def self.save_points(run,time,high,low,inches)
-    if !!run && !!time && !!h && !!l && !!r
+  def self.save_points(run,time,high,low,inches,mean,dewpoint,chill,clouds,precip,wind)
+    if !!run && !!time
       point = new
       point.run_id = run
       point.time = time
-      point.high_temperature_predicted = high
-      point.low_temperature_predicted = low
-      point.rain_inches_predicted = inches
+      point.rain_inches_predicted = inches if inches
+      point.high_temperature_predicted = high if high
+      point.low_temperature_predicted = low if low
+      point.dewpoint_predicted = dewpoint if dewpoint
+      point.precipitation_potential = precip if precip
+      point.mean_temperature_predicted = mean if mean
+      point.wind_chill_predicted = chill if chill
+      point.surface_wind_predicted = wind if wind
+      point.cloud_cover = clouds if clouds
       point.save
-    else
-      Log.create_log('problem with point param','','','','','')
     end
   end
-  
+
   def self.parse_points(run,times,high,low,inches)
     times.each do |time|
       high = high[time].to_i
       low = low[time].to_i
       inches = inches[time].round(2)
-      self.save_points(run,time,high,low,inches)
+      save_points(run,time,high,low,inches,'','','','','','')
     end
   end
-  
+
 end
