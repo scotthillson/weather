@@ -70,12 +70,15 @@ module NWSModule
         elsif row == :percent
           percents.push td.text
         elsif row == :chill
-          chills.push td.text
+          if td.text.is_number?
+            chills.push td.text
+          else
+            chills.push 0
+          end
         elsif row == :wind
           winds.push td.text
         end
       end
-      puts hours
     end
     hours.each_with_index do |hour,i|
       time = Time.parse("#{dates[i]} #{hour}:00")
