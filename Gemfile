@@ -6,7 +6,7 @@ gem 'httparty'
 # nokogiri
 gem 'nokogiri'
 # postgresql
-# gem 'pg'
+gem 'pg'
 # sqlite
 gem 'sqlite3'
 # gon
