@@ -43,7 +43,7 @@ class Run < ActiveRecord::Base
     # but after migrate
     Run.all.each do |run|
       if !run.location_id
-        run.location_id = Location.find_by_code(run.code).id
+        run.location_id = Location.find_by_code(run.location).id
         run.save
       end
       if !run.run_time
