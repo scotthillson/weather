@@ -2,6 +2,7 @@ class ForecastController < ApplicationController
   before_action :set_location, only: :weather_chart
 
   def weather_chart
+    gon.columns = []
     runs_array = []
     times = [] 
     @tables = {}
@@ -32,6 +33,7 @@ class ForecastController < ApplicationController
         end
         join_tables(r,recent,times,highs,lows,inches,means,clouds,pots)
       end
+      gon.columns.concat ['High','Low','Inches','Mean','Clouds','Potential']
       gon.runs = runs_array
       gon.tables = @tables
       gon.times = times

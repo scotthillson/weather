@@ -42,7 +42,7 @@ module MeteostarModule
 			marker = 2 if text == '180'
 			if marker
 				if ( i - 1 ) % 19 == 0 && i > 18
-          t = parse_time(text)
+          t = Run.parse_time(text)
           times.push(t)
 				end
         if i > 18
