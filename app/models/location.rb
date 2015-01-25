@@ -4,7 +4,7 @@ class Location < ActiveRecord::Base
   def self.populate_all
     locations = all
     locations.each do |location|
-      location.populate
+      location.populate if location.url
     end
 	end
 

@@ -9,7 +9,7 @@ Weather::Application.routes.draw do
   resources :runs
   resources :logs
 
-  root to: 'forecast#weather_chart', location: 'KPDX'
+  root to: 'forecast#weather_chart', location: '97202'
   
   get 'locations', to: 'locations#index'
   
