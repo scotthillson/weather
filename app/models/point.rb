@@ -19,12 +19,12 @@ class Point < ActiveRecord::Base
     end
   end
 
-  def self.parse_points(run,times,high,low,inches)
+  def self.parse_points(run,times,highs,lows,inches)
     times.each do |time|
-      high = high[time].to_i
-      low = low[time].to_i
-      inches = inches[time].round(2)
-      save_points(run,time,high,low,inches,'','','','','','')
+      high = highs[time].to_i
+      low = lows[time].to_i
+      inch = inches[time].round(2)
+      save_points(run,time,high,low,inch,'','','','','','')
     end
   end
 

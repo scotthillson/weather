@@ -31,9 +31,9 @@ module MeteostarModule
     marker = nil
     times = Array.new
     table = fetch_meteostar_table(page)
-    rain = {}
-		high = {}
-		low = {}
+    inches = {}
+		highs = {}
+		lows = {}
 		t = nil
 		i = 0
 		table.each do |cell|
@@ -47,21 +47,21 @@ module MeteostarModule
 				end
         if i > 18
           if (i - 3) % 19 == 0
-            high[t] = text
+            highs[t] = text
           end
           if (i - 4) % 19 == 0
-            low[t] = text
+            lows[t] = text
           end
           if (i - 9) % 19 == 0
             text = text.to_f*100
-            rain[t] = text
+            inches[t] = text
             break if marker == 2
           end
         end
         i = i + 1
 			end
 		end
-    Point.parse_points(run,times,high,low,rain)
+    Point.parse_points(run,times,highs,lows,inches)
 	end
 
 end
