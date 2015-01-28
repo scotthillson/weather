@@ -33,7 +33,7 @@ class ForecastController < ApplicationController
         dews[key] = p.dewpoint_predicted
         times.push(time) if r == recent
       end
-      join_tables(r,recent,times,highs,lows,inches,means,clouds,pots)
+      join_tables(r,recent,times,highs,lows,inches,means,clouds,pots,dews)
     end
     gon.columns = ['High','Low','Inches','Mean','Clouds','Potential','Dewpoint']
     gon.colors = ['Red','Purple','Black','Orange','Blue','Gray','Purple']
@@ -42,7 +42,7 @@ class ForecastController < ApplicationController
     gon.times = times
   end
 
-  def join_tables(run,recent,times,highs,lows,inches,means,clouds,pots)
+  def join_tables(run,recent,times,highs,lows,inches,means,clouds,pots,dews)
     array = []
     times.each do |time|
       master_key = ( recent + time )
