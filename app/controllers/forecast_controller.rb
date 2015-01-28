@@ -22,7 +22,7 @@ class ForecastController < ApplicationController
       points = run.points
       points.each do |p|
         #time = p.time.in_time_zone('Pacific Time (US & Canada)').strftime("%A %-m-%d %l%P")
-        time = p.time#.strftime("%A %-m-%d %l%P")
+        time = p.time.to_s
         key = r + time
         highs[key] = p.high_temperature_predicted
         inches[key] = p.rain_inches_predicted
