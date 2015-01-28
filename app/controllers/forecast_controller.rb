@@ -2,7 +2,6 @@ class ForecastController < ApplicationController
   before_action :set_location, only: :weather_chart
 
   def weather_chart
-    gon.columns = []
     runs_array = []
     times = [] 
     @tables = {}
@@ -11,33 +10,36 @@ class ForecastController < ApplicationController
     highs = {}
     means = {}
     lows = {}
+    dews = {}
     pots = {}
     recent = nil
     runs = Run.where(location_id: @location.id).order('run').reverse.first(8)
-    if runs.count > 0
-      recent = runs[0].run_time.to_s
-      runs.each do |run|
-        r = run.run_time.to_s
-        runs_array.push(r)
-        points = run.points
-        points.each do |p|
-          time = p.time.in_time_zone('Pacific Time (US & Canada)').strftime("%A %-m-%d %l%P")
-          key = r + time
-          highs[key] = p.high_temperature_predicted
-          inches[key] = p.rain_inches_predicted
-          lows[key] = p.low_temperature_predicted
-          means[key] = p.mean_temperature_predicted
-          clouds[key] = p.cloud_cover
-          pots[key] = p.precipitation_potential
-          times.push(time) if r == recent
-        end
-        join_tables(r,recent,times,highs,lows,inches,means,clouds,pots)
+    return if !runs
+    recent = runs[0].run_time.to_s
+    runs.each do |run|
+      r = run.run_time.to_s
+      runs_array.push(r)
+      points = run.points
+      points.each do |p|
+        #time = p.time.in_time_zone('Pacific Time (US & Canada)').strftime("%A %-m-%d %l%P")
+        time = p.time.strftime("%A %-m-%d %l%P")
+        key = r + time
+        highs[key] = p.high_temperature_predicted
+        inches[key] = p.rain_inches_predicted
+        lows[key] = p.low_temperature_predicted
+        means[key] = p.mean_temperature_predicted
+        clouds[key] = p.cloud_cover
+        pots[key] = p.precipitation_potential
+        dews[key] = p.dewpoint_predicted
+        times.push(time) if r == recent
       end
-      gon.columns.concat ['High','Low','Inches','Mean','Clouds','Potential']
-      gon.runs = runs_array
-      gon.tables = @tables
-      gon.times = times
+      join_tables(r,recent,times,highs,lows,inches,means,clouds,pots)
     end
+    gon.columns = ['High','Low','Inches','Mean','Clouds','Potential','Dewpoint']
+    gon.colors = ['Red','Purple','Black','Orange','Blue','Gray','Purple']
+    gon.runs = runs_array
+    gon.tables = @tables
+    gon.times = times
   end
 
   def join_tables(run,recent,times,highs,lows,inches,means,clouds,pots)
@@ -51,7 +53,8 @@ class ForecastController < ApplicationController
       mean = means[key] ? means[key] : means[master_key]
       cloud = clouds[key] ? clouds[key] : clouds[master_key]
       pot = pots[key] ? pots[key] : pots[master_key]
-      text = [ time , high.to_i , low.to_i , inch.to_i, mean.to_i, cloud.to_i , pot ]
+      dew = dews[key] ? dews[key] : dews[master_key]
+      text = [time, high.to_i, low.to_i, inch.to_i, mean.to_i, cloud.to_i, pot, dew]
       array.push(text)
     end
     @tables[run] = array
