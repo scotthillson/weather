@@ -8,7 +8,6 @@ module NWSModule
 
   def self.fetch_table(page)
     page.css('body').search('table')[7].search('tr')
-    #page.css('body').css('table')[5].css('tbody')
   end
 
   def self.get_nws_runs(page)
@@ -82,6 +81,7 @@ module NWSModule
     end
     hours.each_with_index do |hour,i|
       time = Time.parse("#{dates[i]} #{hour}:00")
+      puts time
       Point.save_points(run_id,time,'','','',means[i],dews[i],chills[i],clouds[i],percents[i],winds[i])
     end
   end
