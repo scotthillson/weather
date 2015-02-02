@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150123202628) do
+ActiveRecord::Schema.define(version: 20150202190340) do
 
   create_table "blogs", force: true do |t|
     t.string   "author"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20150123202628) do
     t.text     "url",        limit: 255
     t.text     "url_two"
     t.text     "url_three"
+    t.string   "time_zone"
   end
 
   create_table "logs", force: true do |t|
@@ -82,7 +83,6 @@ ActiveRecord::Schema.define(version: 20150123202628) do
 
   create_table "runs", force: true do |t|
     t.string   "run"
-    t.string   "location"
     t.string   "model"
     t.datetime "created_at"
     t.datetime "updated_at"

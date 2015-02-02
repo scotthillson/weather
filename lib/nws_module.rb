@@ -19,7 +19,7 @@ module NWSModule
     {time: time, location: location}
   end
 
-  def self.parse_nws(page,run_id)
+  def self.parse_nws(page,run_id,zone)
     percents = []
     clouds = []
     chills = []

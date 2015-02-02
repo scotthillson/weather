@@ -1,7 +1,9 @@
 class Run < ActiveRecord::Base
   include MeteostarModule
   include NWSModule
+
   has_many :points
+  belongs_to :location
 
   def self.store_run(run,location)
     r = new

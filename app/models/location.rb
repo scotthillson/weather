@@ -1,5 +1,6 @@
 class Location < ActiveRecord::Base
   has_many :subscriptions
+  has_many :runs
 
   def self.populate_all
     locations = all
@@ -34,14 +35,15 @@ class Location < ActiveRecord::Base
         if self.model == 'gfs'
           MeteostarModule.parse_meteostar(page,run_id)
         elsif self.model == 'nws'
-          NWSModule.parse_nws(page,run_id)
+          zone = self.time_zone
+          NWSModule.parse_nws(page,run_id,zone)
           if self.url_two
             page = open_page(self.url_two)
-            NWSModule.parse_nws(page,run_id)
+            NWSModule.parse_nws(page,run_id,zone)
           end
           if self.url_three
             page = open_page(self.url_three)
-            NWSModule.parse_nws(page,run_id)
+            NWSModule.parse_nws(page,run_id,zone)
           end
         end
       end
