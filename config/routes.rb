@@ -1,19 +1,12 @@
 Weather::Application.routes.draw do
 
-  resources :blogs
+  resources :subscriptions, :temperatures, :points, :logs, :blogs, :runs
 
-  resources :subscriptions
-  resources :temperatures
   resources :locations
-  resources :points
-  resources :runs
-  resources :logs
 
-  root to: 'forecast#weather_chart', location: '97202'
-  
+  root to: 'locations#show', id: '97202'
+
   get 'locations', to: 'locations#index'
-  
-  get '/:location', to: 'forecast#weather_chart'
 
   #get '/subscriptions', to: 'subscriptions#index', as: 'subscriptions'
 
