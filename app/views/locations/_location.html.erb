@@ -1,3 +1,4 @@
-<%= location.name %>
-<%= location.code %>
-<br>
+<tr>
+  <td><%= link_to location.code, location_path(location.code) %></td>
+  <td><%= location.name %></td>
+</tr>

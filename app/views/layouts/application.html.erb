@@ -22,13 +22,13 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="<%= 'active' if current_page?(root_path) %> "><%= link_to root_path do %><div class="btn btn-primar">Chart</div><% end %></li>
-        <li class="<%= 'active' if current_page?(subscriptions_path) %> "><%= link_to subscriptions_path do %><div class="btn btn-primar">Subscriptions</div><% end %></li>
-        <% if current_page?(subscriptions_path) %>
-        <% else %>
-        <li><a><div class="timer btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="You can't click me yet">Loading</div></a></li>
-		    <li><a><div class="again btn btn-success btn-sm">Play Again</div></a></li>
-		    <li><a><div class="btn btn-primary btn-sm" data-toggle="modal" data-target=".why-modal">Why?</div></a></li>
+        <li class="<%= 'active' if @location %>"><%= link_to root_path do %><div class="btn btn-primar">Chart</div><% end %></li>
+        <li class="<%= 'active' if current_page?(subscriptions_path) %>"><%= link_to subscriptions_path do %><div class="btn btn-primar">Subscriptions</div><% end %></li>
+        <li class="<%= 'active' if current_page?(locations_path) %>"><%= link_to locations_path do %><div class="btn btn-primar">Locations</div><% end %></li>
+        <% if @location %>
+          <li><a><div class="timer btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="You can't click me yet">Loading</div></a></li>
+  		    <li><a><div class="again btn btn-success btn-sm">Play Again</div></a></li>
+  		    <li><a><div class="btn btn-primary btn-sm" data-toggle="modal" data-target=".why-modal">Why?</div></a></li>
         <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->
