@@ -28,4 +28,12 @@ class Point < ActiveRecord::Base
     end
   end
 
+  def self.cleanup
+    Point.all.each do |point|
+      if Run.where(id: point.run_id).length < 1
+        point.destroy
+      end
+    end
+  end
+
 end
