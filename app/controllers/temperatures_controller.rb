@@ -1,28 +1,20 @@
 class TemperaturesController < ApplicationController
   before_action :set_temperature, only: [:show, :edit, :update, :destroy]
 
-  # GET /temperatures
-  # GET /temperatures.json
   def index
     @temperatures = Temperature.all
   end
 
-  # GET /temperatures/1
-  # GET /temperatures/1.json
   def show
   end
 
-  # GET /temperatures/new
   def new
     @temperature = Temperature.new
   end
 
-  # GET /temperatures/1/edit
   def edit
   end
 
-  # POST /temperatures
-  # POST /temperatures.json
   def create
     @temperature = Temperature.new(temperature_params)
 
@@ -37,8 +29,6 @@ class TemperaturesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /temperatures/1
-  # PATCH/PUT /temperatures/1.json
   def update
     respond_to do |format|
       if @temperature.update(temperature_params)
@@ -51,8 +41,6 @@ class TemperaturesController < ApplicationController
     end
   end
 
-  # DELETE /temperatures/1
-  # DELETE /temperatures/1.json
   def destroy
     @temperature.destroy
     respond_to do |format|
@@ -67,8 +55,9 @@ class TemperaturesController < ApplicationController
       @temperature = Temperature.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Never trust parameters from the scary internet.
     def temperature_params
       params.require(:temperature).permit(:temperature, :latitude, :longitude, :location, :name, :elevation, :precipitation, :altimiter)
     end
+
 end

@@ -1,31 +1,22 @@
 class LogsController < ApplicationController
   before_action :set_log, only: [:show, :edit, :update, :destroy]
 
-  # GET /logs
-  # GET /logs.json
   def index
-    @logs = Log.all.reverse
+    @logs = Log.all.order(:created_at).reverse
   end
 
-  # GET /logs/1
-  # GET /logs/1.json
   def show
   end
 
-  # GET /logs/new
   def new
     @log = Log.new
   end
 
-  # GET /logs/1/edit
   def edit
   end
 
-  # POST /logs
-  # POST /logs.json
   def create
     @log = Log.new(log_params)
-
     respond_to do |format|
       if @log.save
         format.html { redirect_to @log, notice: 'Log was successfully created.' }
@@ -37,8 +28,6 @@ class LogsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /logs/1
-  # PATCH/PUT /logs/1.json
   def update
     respond_to do |format|
       if @log.update(log_params)
@@ -51,8 +40,6 @@ class LogsController < ApplicationController
     end
   end
 
-  # DELETE /logs/1
-  # DELETE /logs/1.json
   def destroy
     @log.destroy
     respond_to do |format|
@@ -67,8 +54,9 @@ class LogsController < ApplicationController
       @log = Log.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Never trust parameters from the scary internet.
     def log_params
       params.require(:log).permit(:action, :note, :run)
     end
+
 end
