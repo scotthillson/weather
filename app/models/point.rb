@@ -30,8 +30,12 @@ class Point < ActiveRecord::Base
 
   def self.cleanup
     Point.all.each do |point|
-      if Run.where(id: point.run_id).length < 1
-        point.destroy
+      if point.time.zone == "PDT"
+        point.time = point.time + 25200 # 7 hours
+        point.save
+      elsif point.time.zone == "PST"
+        point.time = point.time + 28800 # 8 hours
+        point.save
       end
     end
   end

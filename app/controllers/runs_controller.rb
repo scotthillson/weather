@@ -1,28 +1,20 @@
 class RunsController < ApplicationController
   before_action :set_run, only: [:show, :edit, :update, :destroy]
 
-  # GET /runs
-  # GET /runs.json
   def index
     @runs = Run.all
   end
 
-  # GET /runs/1
-  # GET /runs/1.json
   def show
   end
 
-  # GET /runs/new
   def new
     @run = Run.new
   end
 
-  # GET /runs/1/edit
   def edit
   end
 
-  # POST /runs
-  # POST /runs.json
   def create
     @run = Run.new(run_params)
 
@@ -37,8 +29,6 @@ class RunsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /runs/1
-  # PATCH/PUT /runs/1.json
   def update
     respond_to do |format|
       if @run.update(run_params)
@@ -51,8 +41,6 @@ class RunsController < ApplicationController
     end
   end
 
-  # DELETE /runs/1
-  # DELETE /runs/1.json
   def destroy
     @run.destroy
     respond_to do |format|
@@ -66,8 +54,7 @@ class RunsController < ApplicationController
     def set_run
       @run = Run.find(params[:id])
     end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Never trust parameters from the scary internet.
     def run_params
       params.require(:run).permit(:run, :location, :model)
     end

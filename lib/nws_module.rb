@@ -80,7 +80,7 @@ module NWSModule
       end
     end
     hours.each_with_index do |hour,i|
-      time = Time.parse("#{dates[i]} #{hour}:00").in_time_zone(zone)
+      time = Time.parse("#{dates[i]} #{hour}:00")
       Point.save_points(run_id,time,'','','',means[i],dews[i],chills[i],clouds[i],percents[i],winds[i])
     end
   end
