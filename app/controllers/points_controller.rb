@@ -1,31 +1,22 @@
 class PointsController < ApplicationController
   before_action :set_point, only: [:show, :edit, :update, :destroy]
 
-  # GET /points
-  # GET /points.json
   def index
     @points = Point.all
   end
 
-  # GET /points/1
-  # GET /points/1.json
   def show
   end
 
-  # GET /points/new
   def new
     @point = Point.new
   end
 
-  # GET /points/1/edit
   def edit
   end
 
-  # POST /points
-  # POST /points.json
   def create
     @point = Point.new(point_params)
-
     respond_to do |format|
       if @point.save
         format.html { redirect_to @point, notice: 'Point was successfully created.' }
@@ -51,8 +42,6 @@ class PointsController < ApplicationController
     end
   end
 
-  # DELETE /points/1
-  # DELETE /points/1.json
   def destroy
     @point.destroy
     respond_to do |format|
@@ -66,8 +55,7 @@ class PointsController < ApplicationController
     def set_point
       @point = Point.find(params[:id])
     end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Never trust parameters from the scary internet.
     def point_params
       params.require(:point).permit(:time, :high, :low, :rain, :cloud, :run_id)
     end

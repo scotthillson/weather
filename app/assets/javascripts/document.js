@@ -1,4 +1,5 @@
 // 01.17.2015 - Scott Hillson - Initial Version
+
 var runs = gon.runs.reverse();
 var options;
 var chart;

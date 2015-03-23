@@ -26,8 +26,8 @@ class LocationsController < ApplicationController
       points = run.points
       points.each do |p|
         #time = p.time.in_time_zone('Pacific Time (US & Canada)').strftime("%A %-m-%d %l%P")
-        time = p.time.to_s
-        key = r + time
+        time = p.time#.to_s
+        key = "#{r}#{time}"
         highs[key] = p.high_temperature_predicted
         inches[key] = p.rain_inches_predicted
         lows[key] = p.low_temperature_predicted
@@ -49,8 +49,8 @@ class LocationsController < ApplicationController
   def join_tables(run,recent,times,highs,lows,inches,means,clouds,pots,dews)
     array = []
     times.each do |time|
-      master_key = ( recent + time )
-      key = ( run + time )
+      master_key = "#{recent}#{time}"
+      key = "#{run}#{time}"
       high = highs[key] ? highs[key] : highs[master_key]
       low = lows[key] ? lows[key] : lows[master_key]
       inch = inches[key] ? inches[key] : inches[master_key]

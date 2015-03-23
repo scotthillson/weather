@@ -29,6 +29,9 @@ class Location < ActiveRecord::Base
     elsif self.model == 'nws'
       runs = [get_runs_for_nws(page)[:time].to_s]
     end
+    if !runs
+      return false
+    end
     runs.each do |run|
       run_id = Run.search_runs(Time.parse(run),self.url,self)
       if run_id
