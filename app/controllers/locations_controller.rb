@@ -1,4 +1,5 @@
 class LocationsController < ApplicationController
+
   before_action :set_location, only: :show
 
   def index
@@ -40,7 +41,7 @@ class LocationsController < ApplicationController
       join_tables(r,recent,times,highs,lows,inches,means,clouds,pots,dews)
     end
     gon.columns = ['High','Low','Inches','Mean','Clouds','Potential','Dewpoint']
-    gon.colors = ['Red','Purple','Black','Orange','Blue','Gray','Purple']
+    gon.colors = ['Red','Purple','Black','Orange','Gray','Blue','Purple']
     gon.runs = runs_array
     gon.tables = @tables
     gon.times = times
@@ -63,6 +64,8 @@ class LocationsController < ApplicationController
     end
     @tables[run] = array
   end
+
+  private
 
   def set_location
     @location = Location.where('code LIKE ?',params[:id]).first

@@ -1,4 +1,5 @@
 class RunsController < ApplicationController
+
   before_action :set_run, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -17,7 +18,6 @@ class RunsController < ApplicationController
 
   def create
     @run = Run.new(run_params)
-
     respond_to do |format|
       if @run.save
         format.html { redirect_to @run, notice: 'Run was successfully created.' }
@@ -50,12 +50,13 @@ class RunsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_run
-      @run = Run.find(params[:id])
-    end
-    # Never trust parameters from the scary internet.
-    def run_params
-      params.require(:run).permit(:run, :location, :model)
-    end
+
+  def set_run
+    @run = Run.find(params[:id])
+  end
+
+  def run_params
+    params.require(:run).permit(:run, :location, :model)
+  end
+
 end

@@ -1,4 +1,5 @@
 class TemperaturesController < ApplicationController
+
   before_action :set_temperature, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -17,7 +18,6 @@ class TemperaturesController < ApplicationController
 
   def create
     @temperature = Temperature.new(temperature_params)
-
     respond_to do |format|
       if @temperature.save
         format.html { redirect_to @temperature, notice: 'Temperature was successfully created.' }
@@ -50,14 +50,13 @@ class TemperaturesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_temperature
-      @temperature = Temperature.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet.
-    def temperature_params
-      params.require(:temperature).permit(:temperature, :latitude, :longitude, :location, :name, :elevation, :precipitation, :altimiter)
-    end
+  def set_temperature
+    @temperature = Temperature.find(params[:id])
+  end
+
+  def temperature_params
+    params.require(:temperature).permit(:temperature, :latitude, :longitude, :location, :name, :elevation, :precipitation, :altimiter)
+  end
 
 end

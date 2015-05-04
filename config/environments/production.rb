@@ -79,4 +79,5 @@ Weather::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.time_zone = 'Pacific Time (US & Canada)'
+
 end

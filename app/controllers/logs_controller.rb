@@ -1,4 +1,5 @@
 class LogsController < ApplicationController
+
   before_action :set_log, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -49,14 +50,13 @@ class LogsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_log
-      @log = Log.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet.
-    def log_params
-      params.require(:log).permit(:action, :note, :run)
-    end
+  def set_log
+    @log = Log.find(params[:id])
+  end
+
+  def log_params
+    params.require(:log).permit(:action, :note, :run)
+  end
 
 end

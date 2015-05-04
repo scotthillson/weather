@@ -28,8 +28,6 @@ class PointsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /points/1
-  # PATCH/PUT /points/1.json
   def update
     respond_to do |format|
       if @point.update(point_params)
@@ -51,12 +49,13 @@ class PointsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_point
-      @point = Point.find(params[:id])
-    end
-    # Never trust parameters from the scary internet.
-    def point_params
-      params.require(:point).permit(:time, :high, :low, :rain, :cloud, :run_id)
-    end
+
+  def set_point
+    @point = Point.find(params[:id])
+  end
+
+  def point_params
+    params.require(:point).permit(:time, :high, :low, :rain, :cloud, :run_id)
+  end
+
 end
