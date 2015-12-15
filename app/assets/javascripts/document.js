@@ -5,7 +5,7 @@ var options;
 var chart;
 var ready = function(){
   google_prep();
-  $(document).on('click','.again',google_prep);
+  $(document).on('click','.again',animate);
 }
 $(document).ready(ready);
 $(document).on('page:load',ready);

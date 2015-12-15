@@ -26,13 +26,15 @@ var draw_chart = function(timeout,run){
 }
 
 var animate = function(){
-  if ( get_param('run') == 'recent' ){
-    draw_chart(100,runs[runs.length-1]);
-    return false;
-  }
-  else {
-    return true;
-  }
+  var timeout = 400;
+  runs.forEach(function(entry){
+    draw_chart(timeout,entry);
+    timeout = timeout + 4000
+  });
+  setTimeout(function(){
+    $('.again').removeClass('btn-warning');
+    $('.again').addClass('btn-success');
+  },timeout);
 }
 
 var chart_prep = function(){
@@ -42,17 +44,7 @@ var chart_prep = function(){
     animation:{duration: 3000,easing: 'linear'},
     legend : { position: 'none'}
   };
-  if ( animate() ){
-    var timeout = 400;
-    runs.forEach(function(entry){
-      draw_chart(timeout,entry);
-      timeout = timeout + 4000
-    });
-    setTimeout(function(){
-      $('.again').removeClass('btn-warning');
-      $('.again').addClass('btn-success');
-    },timeout);
-  }
+  draw_chart(100,runs[runs.length-1]);
 }
 var trigger_chart = function(data){
   chart.draw(data, options);

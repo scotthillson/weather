@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Weather!</title>
-	<meta name="description" content="Advanced forecast data. Support for more cities coming soon. ">
-	<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-	<%= csrf_meta_tags %>
-	<%= include_gon %>
+  <title>Weather!</title>
+  <meta name="description" content="Advanced forecast data. Support for more cities coming soon. ">
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+  <%= include_gon %>
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation">
@@ -27,8 +27,8 @@
         <li class="<%= 'active' if current_page?(locations_path) %>"><%= link_to locations_path do %><div class="btn btn-primar">Locations</div><% end %></li>
         <% if @location %>
           <li><a><div class="timer btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="You can't click me yet">Loading</div></a></li>
-  		    <li><a><div class="again btn btn-success btn-sm">Play Again</div></a></li>
-  		    <li><a><div class="btn btn-primary btn-sm" data-toggle="modal" data-target=".why-modal">Why?</div></a></li>
+          <li><a><div class="again btn btn-success btn-sm">Animate</div></a></li>
+          <li><a><div class="btn btn-primary btn-sm" data-toggle="modal" data-target=".why-modal">Why?</div></a></li>
         <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->
@@ -37,6 +37,6 @@
 <%= yield %>
 </body>
 <footer>
-	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 </footer>
 </html>
