@@ -1,16 +1,16 @@
 module MeteostarModule
 
   def self.fetch_meteostar_table(page)
-		page.css('table')[1].css('td')
-	end
+    page.css('table')[1].css('td')
+  end
 
   def self.fetch_meteostar_runs(page)
-	  page.css('table')[1].css('form').css('option')
+    page.css('table')[1].css('form').css('option')
   end
 
   def self.get_meteostar_runs(page)
     marker = 0
-	  runs = Array.new
+    runs = Array.new
     form = fetch_meteostar_runs(page)
     form.each do |cell|
       if marker > 0
