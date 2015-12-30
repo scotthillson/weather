@@ -1,26 +1,27 @@
 class Location < ActiveRecord::Base
+  
   has_many :subscriptions
   has_many :runs
-
+  
   def self.populate_all
     locations = all
     locations.each do |location|
       location.populate if location.url
     end
-	end
-
+  end
+  
   def open_page(page)
     Nokogiri::HTML(open(page))
   end
-
+  
   def get_runs_for_gfs(page)
     MeteostarModule.get_meteostar_runs(page)
   end
-
+  
   def get_runs_for_nws(page)
     NWSModule.get_nws_runs(page)
   end
-
+  
   def populate
     Log.create_log('run search beginning','',self.name,'','','')
     page = open_page(self.url)
@@ -52,5 +53,5 @@ class Location < ActiveRecord::Base
       end
     end
   end
-
+  
 end
