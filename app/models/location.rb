@@ -1,4 +1,5 @@
 class Location < ActiveRecord::Base
+
   has_many :subscriptions
   has_many :runs
 
