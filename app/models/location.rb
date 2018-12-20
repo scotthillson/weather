@@ -7,7 +7,7 @@ class Location < ActiveRecord::Base
     locations.each do |location|
       location.populate if location.url
     end
-	end
+  end
 
   def open_page(page)
     Nokogiri::HTML(open(page))
